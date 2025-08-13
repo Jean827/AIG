@@ -1,0 +1,1 @@
+{"timestamp":"2025-08-13T09:56:41.174+00:00","status":400,"error":"Bad Request","message":"Unknown dependency 'cloud-starter-netflix-eureka-client' check project metadata","path":"/starter.zip"}

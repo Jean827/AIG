@@ -1,0 +1,36 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: config-service
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/configs
+
+# 配置从本地文件系统读取配置，后续可改为Git仓库
+# 为了演示，我们先使用本地文件系统
+# 在src/main/resources下创建configs目录，存放各服务的配置文件
+
+# 配置Eureka客户端
+# 由于配置中心需要被其他服务发现，所以需要注册到Eureka
+# 但在实际部署时，可能需要考虑配置中心的高可用性
+# 和是否需要被其他服务发现的问题
+
+# 注意：这里存在一个潜在的循环依赖问题
+# 配置中心需要注册到Eureka，而Eureka可能需要从配置中心获取配置
+# 为了简化，我们先不将配置中心注册到Eureka
+# 实际项目中可以通过配置bootstrap.yml或调整启动顺序来解决
+
+# eureka:
+#   client:
+#     serviceUrl:
+#       defaultZone: http://localhost:8761/eureka/
+#   instance:
+#     preferIpAddress: true
+
+# 暂时禁用Eureka注册，避免循环依赖问题
+# 后续可以根据实际情况调整
+spring.cloud.config.server.git.uri: file:///Users/Data/AIG/Projects/MYP/backend/config-service/src/main/resources/configs

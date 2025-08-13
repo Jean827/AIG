@@ -1,0 +1,65 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/auth/**
+          filters:
+            - StripPrefix=1
+        - id: tenant-service
+          uri: lb://tenant-service
+          predicates:
+            - Path=/tenant/**
+          filters:
+            - StripPrefix=1
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/user/**
+          filters:
+            - StripPrefix=1
+        - id: product-service
+          uri: lb://product-service
+          predicates:
+            - Path=/product/**
+          filters:
+            - StripPrefix=1
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+            - Path=/order/**
+          filters:
+            - StripPrefix=1
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: '*'
+            allowedMethods: '*'
+            allowedHeaders: '*'
+  config:
+    import: optional:configserver:http://localhost:8888
+
+# 连接超时配置
+spring.cloud.gateway.httpclient.connect-timeout: 5000
+spring.cloud.gateway.httpclient.response-timeout: 10000
+
+# Eureka客户端配置
+# 注意：这里同样存在潜在的循环依赖问题
+# 实际项目中需要合理配置启动顺序和依赖关系
+
+# eureka:
+#   client:
+#     serviceUrl:
+#       defaultZone: http://localhost:8761/eureka/
+#   instance:
+#     preferIpAddress: true
+
+# 暂时禁用Eureka注册，避免循环依赖问题
+# 后续可以根据实际情况调整

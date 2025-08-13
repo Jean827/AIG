@@ -1,0 +1,114 @@
+{
+    "mcpServers": {
+        "maven": {
+            "command": "npx",
+            "args": [
+                "mcp-maven-deps"
+            ]
+        },
+        "gitee": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@gitee/mcp-gitee@latest"
+            ],
+            "env": {
+                "GITEE_API_BASE": "https://gitee.com/api/v5",
+                "GITEE_ACCESS_TOKEN": "<your personal access token>"
+            }
+        },
+        "kubernetes-readonly": {
+            "command": "npx",
+            "args": [
+                "mcp-server-kubernetes"
+            ],
+            "env": {
+                "ALLOW_ONLY_NON_DESTRUCTIVE_TOOLS": "true"
+            }
+        },
+        "context7": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@upstash/context7-mcp"
+            ],
+            "env": {
+                "DEFAULT_MINIMUM_TOKENS": "6000"
+            }
+        },
+        "f2c-mcp": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@f2c/mcp"
+            ],
+            "env": {
+                "personalToken": ""
+            }
+        },
+        "github": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-github"
+            ],
+            "env": {
+                "GITHUB_PERSONAL_ACCESS_TOKEN": "<YOUR_TOKEN>"
+            }
+        },
+        "sequential-thinking": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-sequential-thinking"
+            ]
+        },
+        "memory": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-memory"
+            ],
+            "env": {
+                "MEMORY_FILE_PATH": "/path/to/custom/memory.json"
+            }
+        },
+        "mongodb": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "mcp-mongo-server"
+            ],
+            "env": {
+                "MCP_MONGODB_URI": "mongodb://super:1qazxsw2@localhost:27017/mcp_db?authSource=admin",
+                "MCP_MONGODB_READONLY": "false",
+                "DEBUG": "true"
+            }
+        },
+        "mysql": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "mysql-mcp-server"
+            ],
+            "env": {
+                "MYSQL_HOST": "localhost",
+                "MYSQL_PORT": "3306",
+                "MYSQL_USER": "super",
+                "MYSQL_PASSWORD": "1qazxsw2",
+                "MYSQL_DATABASE": "mcp_db"
+            }
+        },
+        "todoist": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "todoist-mcp-server"
+            ],
+            "env": {
+                "TODOIST_API_TOKEN": "dummy_api_key",
+                "TODOIST_PROJECT_ID": "dummy_project_id"
+            }
+        }
+    }
+}

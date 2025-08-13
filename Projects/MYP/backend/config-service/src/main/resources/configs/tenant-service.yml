@@ -20,8 +20,6 @@ spring:
     redis:
       host: localhost
       port: 6379
-  config:
-    import: optional:configserver:http://localhost:8888
 
 # 租户配置
 tenant:

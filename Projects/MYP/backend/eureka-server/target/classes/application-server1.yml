@@ -1,0 +1,20 @@
+server:
+  port: 8761
+
+spring:
+  application:
+    name: eureka-server
+
+# Eureka配置
+server1:
+eureka:
+  instance:
+    hostname: eureka-server1
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://eureka-server2:8762/eureka/
+  server:
+    enableSelfPreservation: false
+    evictionIntervalTimerInMs: 5000

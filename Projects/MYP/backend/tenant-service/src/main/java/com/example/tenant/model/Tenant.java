@@ -19,6 +19,9 @@ public class Tenant {
     @Column(name = "tenant_code", nullable = false, unique = true)
     private String tenantCode;
 
+    @Column(name = "custom_schema_name")
+    private String customSchemaName;
+
     @Column(name = "description")
     private String description;
 
@@ -54,6 +57,14 @@ public class Tenant {
 
     public void setTenantCode(String tenantCode) {
         this.tenantCode = tenantCode;
+    }
+
+    public String getCustomSchemaName() {
+        return customSchemaName;
+    }
+
+    public void setCustomSchemaName(String customSchemaName) {
+        this.customSchemaName = customSchemaName;
     }
 
     public String getDescription() {

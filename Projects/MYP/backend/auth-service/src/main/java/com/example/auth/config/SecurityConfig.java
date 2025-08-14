@@ -4,6 +4,7 @@ import com.example.auth.security.JwtAuthenticationEntryPoint;
 import com.example.auth.security.JwtAuthenticationFilter;
 import com.example.auth.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,12 +22,19 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-@RequiredArgsConstructor
 public class SecurityConfig {
 
     private final UserService userService;
     private final JwtAuthenticationEntryPoint unauthorizedHandler;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    public SecurityConfig(@Lazy UserService userService,
+                          JwtAuthenticationEntryPoint unauthorizedHandler,
+                          @Lazy JwtAuthenticationFilter jwtAuthenticationFilter) {
+        this.userService = userService;
+        this.unauthorizedHandler = unauthorizedHandler;
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+    }
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {

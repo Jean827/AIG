@@ -1,5 +1,6 @@
 import com.example.auth.entity.Permission;
 import com.example.auth.entity.Role;
+import com.example.auth.entity.Permission;
 import com.example.auth.repository.PermissionRepository;
 import com.example.auth.repository.RoleRepository;
 import com.example.auth.repository.UserRepository;

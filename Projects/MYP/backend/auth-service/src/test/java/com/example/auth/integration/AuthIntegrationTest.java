@@ -54,7 +54,7 @@ public class AuthIntegrationTest {
         user.setUsername(TEST_USERNAME);
         user.setPassword(passwordEncoder.encode(TEST_PASSWORD));
         user.setEmail("test@example.com");
-        user.setStatus(1);
+        user.setActive(true);
 
         Set<Role> roles = new HashSet<>();
         roles.add(userRole);

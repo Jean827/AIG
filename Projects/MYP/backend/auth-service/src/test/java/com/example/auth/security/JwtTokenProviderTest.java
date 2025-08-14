@@ -1,7 +1,6 @@
 package com.example.auth.security;
 
-import com.example.auth.entity.Role;
-import com.example.auth.entity.User;
+import com.example.auth.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -11,6 +10,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.HashSet;
@@ -24,6 +24,9 @@ class JwtTokenProviderTest {
 
     @Mock
     private RedisTemplate<String, Object> redisTemplate;
+
+    @Mock
+    private UserService userService;
 
     @InjectMocks
     private JwtTokenProvider jwtTokenProvider;
@@ -72,6 +75,88 @@ class JwtTokenProviderTest {
     }
 
     @Test
+    void generateMfaJwtToken() {
+        Authentication authentication = createAuthentication();
+        String mfaCode = "123456";
+        String token = jwtTokenProvider.generateMfaJwtToken(authentication, mfaCode);
+        assertNotNull(token);
+        verify(redisTemplate).opsForValue().set(
+                eq("mfa_code:testuser"),
+                eq(mfaCode),
+                eq(5L),
+                eq(TimeUnit.MINUTES)
+        );
+    }
+
+    @Test
+    void verifyMfaAndGenerateToken_success() {
+        String username = "testuser";
+        String mfaCode = "123456";
+        UserDetails userDetails = createUserDetails();
+
+        when(redisTemplate.opsForValue().get("mfa_code:" + username)).thenReturn(mfaCode);
+        when(userService.loadUserByUsername(username)).thenReturn(userDetails);
+
+        String token = jwtTokenProvider.verifyMfaAndGenerateToken(username, mfaCode);
+        assertNotNull(token);
+        verify(redisTemplate).delete("mfa_code:" + username);
+    }
+
+    @Test
+    void verifyMfaAndGenerateToken_invalidCode() {
+        String username = "testuser";
+        String mfaCode = "123456";
+        String invalidCode = "654321";
+
+        when(redisTemplate.opsForValue().get("mfa_code:" + username)).thenReturn(mfaCode);
+
+        assertThrows(RuntimeException.class, () -> {
+            jwtTokenProvider.verifyMfaAndGenerateToken(username, invalidCode);
+        });
+    }
+
+    @Test
+    void verifyMfaAndGenerateToken_expiredCode() {
+        String username = "testuser";
+        String mfaCode = "123456";
+
+        when(redisTemplate.opsForValue().get("mfa_code:" + username)).thenReturn(null);
+
+        assertThrows(RuntimeException.class, () -> {
+            jwtTokenProvider.verifyMfaAndGenerateToken(username, mfaCode);
+        });
+    }
+
+    @Test
+    void getUserNameFromJwtToken() {
+        Authentication authentication = createAuthentication();
+        String token = jwtTokenProvider.generateJwtToken(authentication);
+        String username = jwtTokenProvider.getUserNameFromJwtToken(token);
+        assertEquals("testuser", username);
+    }
+
+    @Test
+    void getUserNameFromRefreshToken() {
+        Authentication authentication = createAuthentication();
+        String refreshToken = jwtTokenProvider.generateRefreshToken(authentication);
+        String username = jwtTokenProvider.getUserNameFromRefreshToken(refreshToken);
+        assertEquals("testuser", username);
+    }
+
+    @Test
+    void validateRefreshToken_valid() {
+        Authentication authentication = createAuthentication();
+        String refreshToken = jwtTokenProvider.generateRefreshToken(authentication);
+        assertTrue(jwtTokenProvider.validateRefreshToken(refreshToken));
+    }
+
+    @Test
+    void validateRefreshToken_invalid() {
+        String invalidToken = "invalid.token";
+        assertFalse(jwtTokenProvider.validateRefreshToken(invalidToken));
+    }
+
+    @Test
     void blacklistToken() {
         Authentication authentication = createAuthentication();
         String token = jwtTokenProvider.generateJwtToken(authentication);
@@ -88,5 +173,15 @@ class JwtTokenProviderTest {
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         return new UsernamePasswordAuthenticationToken("testuser", "password", authorities);
+    }
+
+    private UserDetails createUserDetails() {
+        Set<SimpleGrantedAuthority> authorities = new HashSet<>();
+        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        return new org.springframework.security.core.userdetails.User(
+                "testuser",
+                "password",
+                authorities
+        );
     }
 }

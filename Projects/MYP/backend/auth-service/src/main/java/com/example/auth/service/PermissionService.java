@@ -1,3 +1,5 @@
+package com.example.auth.service;
+
 import com.example.auth.entity.Permission;
 import java.util.List;
 

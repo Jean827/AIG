@@ -1,3 +1,5 @@
+package com.example.auth.service.impl;
+
 import com.example.auth.entity.Permission;
 import com.example.auth.repository.PermissionRepository;
 import com.example.auth.service.PermissionService;

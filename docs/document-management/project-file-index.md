@@ -35,3 +35,9 @@
 3. 文档状态: 生效中/进行中/已废止
 4. 时间戳格式: YYYY-MM-DD HH:mm:ss GMT+8
 5. 已移除以下整合的文档: 18-测试数据管理规范.md, 20-配置变更管理规范.md
+
+## 经验教训文档
+
+- [Spring Boot 3.x JPA迁移与数据库连接问题解决方案](../lessons-learned/spring-boot-3-jpa-migration.md)
+- [API测试指南-认证服务](../lessons-learned/api-testing-guide-auth-service.md)
+- [Java Lombok兼容性问题](../lessons-learned/java-lombok-compatibility.md)

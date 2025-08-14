@@ -36,8 +36,12 @@ public class TenantServiceImpl implements TenantService {
         tenant.setCreatedAt(new Date());
         tenant.setUpdatedAt(new Date());
 
+        // 确定要使用的Schema名称
+        String schemaName = tenant.getCustomSchemaName() != null && !tenant.getCustomSchemaName().isEmpty()
+                ? tenant.getCustomSchemaName() : tenant.getTenantCode();
+
         // 创建租户对应的数据库Schema
-        tenantSchemaManager.createTenantSchema(tenant.getTenantCode());
+        tenantSchemaManager.createTenantSchema(schemaName);
 
         return tenantRepository.save(tenant);
     }

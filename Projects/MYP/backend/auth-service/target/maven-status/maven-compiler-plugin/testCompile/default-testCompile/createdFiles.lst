@@ -1,0 +1,3 @@
+com/example/AppTest.class
+com/example/auth/security/JwtTokenProviderTest.class
+AuthIntegrationTest.class

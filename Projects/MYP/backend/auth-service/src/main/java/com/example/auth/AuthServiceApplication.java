@@ -1,5 +1,3 @@
-package com.example;
-
 package com.example.auth;
 
 import org.springframework.boot.SpringApplication;

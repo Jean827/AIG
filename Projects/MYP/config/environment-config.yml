@@ -1,0 +1,78 @@
+# 环境配置文件
+# 版本: v1.0
+# 遵循开发管理计划 (04-开发管理计划.md) 中的配置管理规范
+
+# 环境设置
+environment: development
+
+# 服务配置
+services:
+  # 后端服务配置
+  backend:
+    port: 8080
+    context-path: /api
+    debug: true
+    log-level: INFO
+    # 数据库连接配置
+    database:
+      url: jdbc:mysql://localhost:3306/myp_dev
+      username: root
+      password: password
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      hikari:
+        maximum-pool-size: 10
+        minimum-idle: 2
+    # Redis配置
+    redis:
+      host: localhost
+      port: 6379
+      password: 
+    # JWT配置
+    jwt:
+      secret: myp_dev_secret_key
+      expiration: 3600000
+      refresh-expiration: 86400000
+
+  # 前端服务配置
+  frontend:
+    port: 3000
+    api-url: http://localhost:8080/api
+    debug: true
+    log-level: INFO
+
+  # 数据库服务配置
+  database:
+    port: 3306
+    image: mysql:8.0
+    root-password: password
+    database: myp_dev
+    username: root
+    password: password
+    # 数据持久化
+    volumes:
+      - mysql-data:/var/lib/mysql
+    # 初始化脚本
+    init-scripts:
+      - ./scripts/database/init-database.sql
+
+# 日志配置
+logging:
+  level:
+    root: INFO
+    com.example: DEBUG
+  file:
+    path: ./logs
+    max-size: 10MB
+    max-history: 7
+
+# Docker配置
+docker:
+  compose-file: ./docker-compose.yml
+  project-name: myp-dev
+
+# 开发工具配置
+dev-tools:
+  enabled: true
+  livereload: true
+  restart:
+    enabled: true

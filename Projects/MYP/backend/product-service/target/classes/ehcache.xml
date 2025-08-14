@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://www.ehcache.org/ehcache.xsd"
+    updateCheck="false">
+
+    <!-- 默认缓存配置 -->
+    <defaultCache
+        maxEntriesLocalHeap="10000"
+        eternal="false"
+        timeToIdleSeconds="120"
+        timeToLiveSeconds="120"
+        diskSpoolBufferSizeMB="30"
+        maxEntriesLocalDisk="10000000"
+        diskExpiryThreadIntervalSeconds="120"
+        memoryStoreEvictionPolicy="LRU">
+        <persistence strategy="localTempSwap"/>
+    </defaultCache>
+
+    <!-- Product实体缓存配置 -->
+    <cache name="com.example.product.model.Product"
+        maxEntriesLocalHeap="500"
+        eternal="false"
+        timeToIdleSeconds="300"
+        timeToLiveSeconds="600"
+        memoryStoreEvictionPolicy="LRU">
+    </cache>
+
+    <!-- Order实体缓存配置 -->
+    <cache name="com.example.product.model.Order"
+        maxEntriesLocalHeap="500"
+        eternal="false"
+        timeToIdleSeconds="300"
+        timeToLiveSeconds="600"
+        memoryStoreEvictionPolicy="LRU">
+    </cache>
+
+    <!-- 查询缓存配置 -->
+    <cache name="query.cache"
+        maxEntriesLocalHeap="100"
+        eternal="false"
+        timeToIdleSeconds="180"
+        timeToLiveSeconds="360"
+        memoryStoreEvictionPolicy="LRU">
+    </cache>
+
+</ehcache>

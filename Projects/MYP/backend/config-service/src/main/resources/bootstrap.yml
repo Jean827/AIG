@@ -1,0 +1,26 @@
+# bootstrap.yml
+spring:
+  application:
+    name: config-service
+  cloud:
+    config:
+      fail-fast: true
+      retry:
+        max-attempts: 6
+        initial-interval: 1000
+        multiplier: 1.1
+        max-interval: 2000
+
+# 配置Eureka地址，避免循环依赖
+# 这里直接配置Eureka地址，而不是从配置中心获取
+# 在实际部署中，可以根据环境变量或系统属性进行配置
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-server1:8761/eureka/,http://eureka-server2:8762/eureka/
+    registryFetchIntervalSeconds: 5
+  instance:
+    preferIpAddress: true
+    instanceId: ${spring.cloud.client.ip-address}:${server.port}
+    leaseRenewalIntervalInSeconds: 5
+    leaseExpirationDurationInSeconds: 10

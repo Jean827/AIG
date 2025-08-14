@@ -1,0 +1,8 @@
+/Users/Data/AIG/Projects/MYP/backend/product-service/src/main/java/com/example/product/controller/ProductController.java
+/Users/Data/AIG/Projects/MYP/backend/product-service/src/main/java/com/example/product/service/impl/ProductServiceImpl.java
+/Users/Data/AIG/Projects/MYP/backend/product-service/src/main/java/com/example/product/repository/ProductRepository.java
+/Users/Data/AIG/Projects/MYP/backend/product-service/src/main/java/com/example/product/model/Product.java
+/Users/Data/AIG/Projects/MYP/backend/product-service/src/main/java/com/example/product/ProductServiceApplication.java
+/Users/Data/AIG/Projects/MYP/backend/product-service/src/main/java/com/example/product/service/ProductService.java
+/Users/Data/AIG/Projects/MYP/backend/product-service/src/main/java/com/example/product/model/Order.java
+/Users/Data/AIG/Projects/MYP/backend/product-service/src/main/java/com/example/product/feign/OrderServiceClient.java

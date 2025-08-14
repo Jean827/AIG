@@ -1,0 +1,8 @@
+com/example/product/service/impl/ProductServiceImpl.class
+com/example/product/model/Product.class
+com/example/product/feign/OrderServiceClient.class
+com/example/product/repository/ProductRepository.class
+com/example/product/controller/ProductController.class
+com/example/product/service/ProductService.class
+com/example/product/model/Order.class
+com/example/product/ProductServiceApplication.class

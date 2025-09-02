@@ -1,13 +1,20 @@
 package com.example.configservice.model;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.MapKeyColumn;
+import jakarta.persistence.Table;
+import jakarta.persistence.Column;
+
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import lombok.Data;
 
@@ -59,7 +66,11 @@ public class ConfigItem {
     private String updatedBy;
 
     // 扩展属性
-    private Map<String, Object> attributes;
+    @ElementCollection
+    @MapKeyColumn(name = "attribute_key")
+    @Column(name = "attribute_value")
+    @JdbcTypeCode(SqlTypes.JSON)
+    private Map<String, Object> attributes = new HashMap<>();
 
     // 变更原因
     private String changeReason;

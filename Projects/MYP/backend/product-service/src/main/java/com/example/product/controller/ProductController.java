@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
@@ -62,10 +63,23 @@ public class ProductController {
     }
 
     /**
-     * 查询所有产品
+     * 查询所有产品（默认分页）
      */
     @GetMapping
-    public ResponseEntity<List<Product>> getAllProducts() {
+    public ResponseEntity<List<Product>> getAllProducts(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        List<Product> products = productService.getAllProducts(page, size);
+        return ResponseEntity.ok(products);
+    }
+
+    /**
+     * 查询所有产品（不分页）
+     * @deprecated 推荐使用分页查询
+     */
+    @GetMapping("/all")
+    @Deprecated
+    public ResponseEntity<List<Product>> getAllProductsWithoutPagination() {
         List<Product> products = productService.getAllProducts();
         return ResponseEntity.ok(products);
     }
@@ -95,5 +109,20 @@ public class ProductController {
     public ResponseEntity<Product> changeProductStatus(@PathVariable Long id, @PathVariable Integer status) {
         Product updatedProduct = productService.changeProductStatus(id, status);
         return ResponseEntity.ok(updatedProduct);
+    }
+    
+    /**
+     * 获取产品关联的订单数量
+     */
+    @GetMapping("/{id}/orders/count")
+    public ResponseEntity<Long> getOrderCountByProductId(@PathVariable Long id) {
+        try {
+            // 直接调用获取订单数量的服务方法
+            Long orderCount = productService.getProductOrderCount(id);
+            return ResponseEntity.ok(orderCount);
+        } catch (RuntimeException e) {
+            // 产品不存在时返回404
+            return ResponseEntity.notFound().build();
+        }
     }
 }

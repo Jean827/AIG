@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Modal, Form, Input, Select, message } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined, SearchOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 import { getTenants, createTenant, updateTenant, deleteTenant } from '../../api/tenant';
 
 const { Option } = Select;
@@ -12,6 +13,7 @@ const TenantList = () => {
   const [editingTenant, setEditingTenant] = useState(null);
   const [form] = Form.useForm();
   const [searchText, setSearchText] = useState('');
+  const navigate = useNavigate();
 
   // 状态选项
   const statusOptions = [
@@ -169,7 +171,20 @@ const TenantList = () => {
             搜索
           </Button>
         </div>
-        <Button type="primary" icon={<PlusOutlined />} onClick={() => showModal()}>
+        <Button 
+          type="primary" 
+          icon={<PlusOutlined />}
+          onClick={(e) => {
+            // 按住Shift键点击保留原有的模态框添加功能
+            if (e.shiftKey) {
+              showModal();
+            } else {
+              // 正常点击跳转到专门的租户创建页面
+              navigate('/tenants/create');
+            }
+          }}
+          title="点击进入创建页面，按住Shift键点击使用模态框创建"
+        >
           添加租户
         </Button>
       </div>
@@ -184,7 +199,7 @@ const TenantList = () => {
 
       <Modal
         title={editingTenant ? '编辑租户' : '添加租户'}
-        visible={visible}
+        open={visible}
         onOk={handleSubmit}
         onCancel={handleCancel}
       >

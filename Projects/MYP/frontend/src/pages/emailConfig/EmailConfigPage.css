@@ -1,0 +1,61 @@
+/* EmailConfigPage.css */
+.email-config-page {
+  padding: 24px;
+  background-color: #f5f5f5;
+  min-height: calc(100vh - 140px);
+}
+
+.email-config-page .header {
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+}
+
+.email-config-page .header h2 {
+  margin: 0;
+  color: #333;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.email-config-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.advanced-settings {
+  border: 1px dashed #d9d9d9;
+  padding: 16px;
+  border-radius: 4px;
+  background-color: #fafafa;
+}
+
+.advanced-item {
+  margin-bottom: 16px;
+}
+
+.advanced-item:last-child {
+  margin-bottom: 0;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 16px;
+  color: #666;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .email-config-page {
+    padding: 16px;
+  }
+  
+  .advanced-settings {
+    padding: 12px;
+  }
+}

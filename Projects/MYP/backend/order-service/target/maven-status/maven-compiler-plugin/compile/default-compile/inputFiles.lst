@@ -1,4 +1,5 @@
 /Users/Data/AIG/Projects/MYP/backend/order-service/src/main/java/com/example/order/OrderServiceApplication.java
+/Users/Data/AIG/Projects/MYP/backend/order-service/src/main/java/com/example/order/config/RedisConfig.java
 /Users/Data/AIG/Projects/MYP/backend/order-service/src/main/java/com/example/order/controller/OrderController.java
 /Users/Data/AIG/Projects/MYP/backend/order-service/src/main/java/com/example/order/controller/OrderWorkflowController.java
 /Users/Data/AIG/Projects/MYP/backend/order-service/src/main/java/com/example/order/controller/PaymentController.java

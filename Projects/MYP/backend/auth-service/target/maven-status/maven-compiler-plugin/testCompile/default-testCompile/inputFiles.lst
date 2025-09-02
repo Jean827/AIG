@@ -1,3 +1,5 @@
 /Users/Data/AIG/Projects/MYP/backend/auth-service/src/test/java/com/example/AppTest.java
+/Users/Data/AIG/Projects/MYP/backend/auth-service/src/test/java/com/example/auth/EmailConfigurationTest.java
 /Users/Data/AIG/Projects/MYP/backend/auth-service/src/test/java/com/example/auth/integration/AuthIntegrationTest.java
 /Users/Data/AIG/Projects/MYP/backend/auth-service/src/test/java/com/example/auth/security/JwtTokenProviderTest.java
+/Users/Data/AIG/Projects/MYP/backend/auth-service/src/test/java/com/example/auth/service/impl/PasswordResetServiceImplTest.java

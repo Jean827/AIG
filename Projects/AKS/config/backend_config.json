@@ -1,0 +1,14 @@
+{
+    "app_name": "阿克苏智慧农业数字化运营管理平台",
+    "version": "1.0.0",
+    "debug": true,
+    "host": "0.0.0.0",
+    "port": 310,
+    "allowed_origins": [
+        "http://localhost:3000",
+        "http://localhost:8000"
+    ],
+    "jwt_secret": "your-secret-key",
+    "jwt_expire": 86400,
+    "log_level": "INFO"
+}

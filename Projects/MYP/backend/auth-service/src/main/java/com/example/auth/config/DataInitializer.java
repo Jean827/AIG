@@ -4,18 +4,22 @@ import com.example.auth.entity.Permission;
 import com.example.auth.repository.PermissionRepository;
 import com.example.auth.repository.RoleRepository;
 import com.example.auth.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
-@RequiredArgsConstructor
 public class DataInitializer implements CommandLineRunner {
 
     private final RoleRepository roleRepository;
     private final PermissionRepository permissionRepository;
     private final UserRepository userRepository;
+
+    public DataInitializer(RoleRepository roleRepository, PermissionRepository permissionRepository, UserRepository userRepository) {
+        this.roleRepository = roleRepository;
+        this.permissionRepository = permissionRepository;
+        this.userRepository = userRepository;
+    }
 
     @Override
     @Transactional

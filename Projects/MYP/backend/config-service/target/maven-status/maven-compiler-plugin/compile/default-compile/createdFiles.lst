@@ -1,0 +1,6 @@
+com/example/configservice/controller/ConfigItemController.class
+com/example/configservice/ConfigServiceApplication.class
+com/example/configservice/service/ConfigItemService.class
+com/example/configservice/service/impl/ConfigItemServiceImpl.class
+com/example/configservice/repository/ConfigItemRepository.class
+com/example/configservice/model/ConfigItem.class

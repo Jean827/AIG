@@ -1,3 +1,6 @@
-com/example/AppTest.class
 com/example/auth/security/JwtTokenProviderTest.class
+com/example/auth/EmailConfigurationTest$1.class
 AuthIntegrationTest.class
+com/example/auth/service/impl/PasswordResetServiceImplTest.class
+com/example/AppTest.class
+com/example/auth/EmailConfigurationTest.class

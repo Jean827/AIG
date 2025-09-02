@@ -3,17 +3,19 @@ package com.example.auth.service.impl;
 import com.example.auth.entity.Permission;
 import com.example.auth.repository.PermissionRepository;
 import com.example.auth.service.PermissionService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class PermissionServiceImpl implements PermissionService {
 
     private final PermissionRepository permissionRepository;
+
+    public PermissionServiceImpl(PermissionRepository permissionRepository) {
+        this.permissionRepository = permissionRepository;
+    }
 
     @Override
     @Transactional

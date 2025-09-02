@@ -35,4 +35,12 @@ public interface OrderServiceClient {
      */
     @GetMapping("/api/orders/tenant/{tenantId}")
     List<Order> getOrdersByTenantId(@PathVariable("tenantId") Long tenantId);
+    
+    /**
+     * 根据产品ID查询订单数量
+     * @param productId 产品ID
+     * @return 订单数量
+     */
+    @GetMapping("/api/orders/product/{productId}/count")
+    Long getOrderCountByProductId(@PathVariable("productId") Long productId);
 }

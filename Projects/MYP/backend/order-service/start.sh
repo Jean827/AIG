@@ -7,7 +7,7 @@ export SPRING_PROFILES_ACTIVE=dev
 
 # 打印启动信息
 echo "正在启动订单服务..."
-\# 检查是否已有相同端口的服务在运行
+# 检查是否已有相同端口的服务在运行
 PORT=8085
 PID=$(lsof -t -i:$PORT)
 if [ -n "$PID" ]; then

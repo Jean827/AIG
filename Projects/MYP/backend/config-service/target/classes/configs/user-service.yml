@@ -1,0 +1,34 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: user-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/user_service?useSSL=false&serverTimezone=UTC
+    username: root
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+# 用户配置
+user:
+  validation:
+    enabled: true
+  password:
+    min-length: 8
+    max-length: 20
+    require-uppercase: true
+    require-lowercase: true
+    require-digit: true
+    require-special: true

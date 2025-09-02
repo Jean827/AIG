@@ -71,4 +71,11 @@ public interface OrderService {
      * @return 更新后的订单
      */
     Order updateOrderStatus(Long id, Integer status);
+    
+    /**
+     * 根据产品ID获取订单数量
+     * @param productId 产品ID
+     * @return 订单数量
+     */
+    Long getOrderCountByProductId(Long productId);
 }

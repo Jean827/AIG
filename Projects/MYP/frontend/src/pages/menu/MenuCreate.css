@@ -1,0 +1,31 @@
+.menu-create {
+  padding: 16px;
+}
+
+.menu-create .ant-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.menu-create .ant-divider {
+  margin: 16px 0;
+}
+
+.menu-create .ant-form-item {
+  margin-bottom: 16px;
+}
+
+.menu-create .ant-tree-select {
+  width: 100%;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .menu-create {
+    padding: 8px;
+  }
+  
+  .menu-create .ant-form {
+    padding: 0;
+  }
+}

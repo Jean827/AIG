@@ -3,6 +3,7 @@ com/example/order/controller/OrderWorkflowController.class
 com/example/order/controller/OrderController.class
 com/example/order/model/Order.class
 com/example/order/repository/OrderHistoryRepository.class
+com/example/order/config/RedisConfig.class
 com/example/order/service/impl/PaymentServiceImpl.class
 com/example/order/repository/OrderRepository.class
 com/example/order/service/OrderService.class

@@ -1,0 +1,201 @@
+/* 页面基础样式 */
+.page-container {
+  background-color: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  min-height: calc(100vh - 160px);
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.page-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #262626;
+  margin: 0;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+/* 表格样式 */
+.data-table {
+  margin-top: 24px;
+}
+
+/* 表单样式 */
+.form-container {
+  margin-top: 24px;
+  max-width: 600px;
+}
+
+.form-item {
+  margin-bottom: 16px;
+}
+
+/* 搜索框样式 */
+.search-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding: 16px;
+  background-color: #fafafa;
+  border-radius: 6px;
+}
+
+/* 分页样式 */
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+/* 卡片样式 */
+.card {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+}
+
+/* 统计卡片样式 */
+.stat-card {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  background-color: #fff;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+}
+
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-right: 16px;
+  font-size: 24px;
+}
+
+.stat-content {
+  flex: 1;
+}
+
+.stat-number {
+  font-size: 24px;
+  font-weight: bold;
+  color: #262626;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #8c8c8c;
+}
+
+/* 空状态样式 */
+.empty-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 24px;
+  background-color: #fafafa;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 48px;
+  color: #d9d9d9;
+  margin-bottom: 16px;
+}
+
+.empty-text {
+  font-size: 16px;
+  color: #8c8c8c;
+}
+
+/* 表单图标样式 */
+.site-form-item-icon {
+  color: rgba(0, 0, 0, 0.25);
+}
+
+.ant-form-item-control-input-content .ant-input-affix-wrapper {
+  width: 100%;
+}
+
+/* 表格行悬停样式 */
+.hover-row:hover {
+  background-color: #f5f5f5;
+}
+
+/* 表单状态项样式 */
+.form-item-status {
+  margin-bottom: 0;
+}
+
+/* 用户模态框样式 */
+.user-modal .ant-modal-body {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .page-container {
+    padding: 16px;
+  }
+  
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .action-buttons {
+    width: 100%;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+  
+  .search-container {
+    flex-direction: column;
+  }
+  
+  .stat-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .stat-icon {
+    margin-right: 0;
+    margin-bottom: 16px;
+  }
+  
+  .empty-container {
+    padding: 32px 16px;
+  }
+  
+  .empty-icon {
+    font-size: 32px;
+  }
+  
+  .empty-text {
+    font-size: 14px;
+  }
+}

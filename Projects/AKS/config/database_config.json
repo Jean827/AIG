@@ -1,0 +1,20 @@
+{
+    "default": {
+        "engine": "postgresql",
+        "host": "localhost",
+        "port": 5432,
+        "database": "aks_agriculture",
+        "username": "super",
+        "password": "1qazxsw2",
+        "sslmode": "prefer"
+    },
+    "test": {
+        "engine": "postgresql",
+        "host": "localhost",
+        "port": 5432,
+        "database": "aks_agriculture_test",
+        "username": "super",
+        "password": "1qazxsw2",
+        "sslmode": "prefer"
+    }
+}

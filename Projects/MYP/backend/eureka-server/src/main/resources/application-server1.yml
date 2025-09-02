@@ -1,5 +1,5 @@
 server:
-  port: 8761
+  port: 5101
 
 spring:
   application:
@@ -14,7 +14,7 @@ eureka:
     registerWithEureka: false
     fetchRegistry: false
     serviceUrl:
-      defaultZone: http://eureka-server2:8762/eureka/
+      defaultZone: http://eureka-server2:5102/eureka/
   server:
     enableSelfPreservation: false
     evictionIntervalTimerInMs: 5000

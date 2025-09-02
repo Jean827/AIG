@@ -3,7 +3,7 @@ package com.example.auth.config;
 import com.example.auth.security.JwtAuthenticationEntryPoint;
 import com.example.auth.security.JwtAuthenticationFilter;
 import com.example.auth.service.UserService;
-import lombok.RequiredArgsConstructor;
+
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

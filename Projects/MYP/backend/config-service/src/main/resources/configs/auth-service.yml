@@ -20,6 +20,28 @@ spring:
     redis:
       host: localhost
       port: 6379
+  # 邮件服务器配置
+  mail:
+    host: smtp.muyacorp.com
+    port: 465
+    username: system@muyacorp.com
+    password: My1qazxsw2
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+            trust: '*'
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+            port: 465
+          socketFactory.fallback: false
+        debug: true  # 启用邮件调试日志
 
 # 安全配置
 security:

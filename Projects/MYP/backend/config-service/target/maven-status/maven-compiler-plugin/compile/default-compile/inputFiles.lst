@@ -1,0 +1,6 @@
+/Users/Data/AIG/Projects/MYP/backend/config-service/src/main/java/com/example/configservice/ConfigServiceApplication.java
+/Users/Data/AIG/Projects/MYP/backend/config-service/src/main/java/com/example/configservice/controller/ConfigItemController.java
+/Users/Data/AIG/Projects/MYP/backend/config-service/src/main/java/com/example/configservice/model/ConfigItem.java
+/Users/Data/AIG/Projects/MYP/backend/config-service/src/main/java/com/example/configservice/repository/ConfigItemRepository.java
+/Users/Data/AIG/Projects/MYP/backend/config-service/src/main/java/com/example/configservice/service/ConfigItemService.java
+/Users/Data/AIG/Projects/MYP/backend/config-service/src/main/java/com/example/configservice/service/impl/ConfigItemServiceImpl.java

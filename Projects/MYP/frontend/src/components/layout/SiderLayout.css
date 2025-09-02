@@ -1,0 +1,172 @@
+/* Sider Styles */
+.sider {
+  background-color: #001529;
+  overflow: auto;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1;
+}
+
+/* Logo Styles */
+.logo {
+  background-color: #001529;
+  padding: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 菜单样式 - 优化版本 */
+.menu {
+  border-right: none;
+  padding: 8px 0;
+  background-color: #001529 !important;
+  /* 确保所有菜单项文字颜色 */
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* 统一菜单项样式 - 简化版 */
+.menu .ant-menu-item,
+.menu .ant-menu-submenu-title,
+.menu .ant-menu-item a,
+.menu .ant-menu-submenu-title a,
+.menu .ant-menu-item span,
+.menu .ant-menu-submenu-title span {
+  color: rgba(255, 255, 255, 0.85) !important;
+  opacity: 1 !important;
+  background-color: transparent !important;
+  transition: all 0.3s ease !important; /* 添加平滑过渡动画 */
+}
+
+/* 优化菜单项高度和间距 */
+.menu .ant-menu-item,
+.menu .ant-menu-submenu-title {
+  padding: 0 16px !important;
+  height: 48px !important;
+  line-height: 48px !important;
+  margin: 4px 0 !important;
+  border-radius: 4px !important;
+}
+
+/* 菜单项交互状态 - 优化版 */
+.menu .ant-menu-item:hover,
+.menu .ant-menu-item-active,
+.menu .ant-menu-submenu-title:hover,
+.menu .ant-menu-submenu-active > .ant-menu-submenu-title {
+  color: #fff !important;
+  background-color: rgba(24, 144, 255, 0.2) !important; /* 悬停时使用半透明背景 */
+  transition: all 0.3s ease !important;
+}
+
+/* 选中菜单项样式 */
+.menu .ant-menu-item-selected {
+  color: #fff !important;
+  background-color: #1890ff !important;
+  font-weight: 500 !important;
+  box-shadow: 0 2px 8px rgba(24, 144, 255, 0.3) !important;
+}
+
+.menu .ant-menu-item-selected a,
+.menu .ant-menu-item-selected span {
+  color: #fff !important;
+}
+
+/* 子菜单容器样式 */
+.menu .ant-menu-sub {
+  background-color: #001f3f !important;
+  border-radius: 0 0 4px 4px !important;
+  margin: 0 8px 8px 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* 子菜单中的菜单项样式 */
+.menu .ant-menu-sub .ant-menu-item {
+  height: 42px !important;
+  line-height: 42px !important;
+  margin: 2px 0 !important;
+  padding-left: 32px !important;
+}
+
+.menu .ant-menu-sub .ant-menu-item:hover,
+.menu .ant-menu-sub .ant-menu-item-active,
+.menu .ant-menu-sub .ant-menu-item-selected {
+  color: #fff !important;
+  background-color: #1890ff !important;
+  padding-left: 32px !important;
+}
+
+/* Header Styles */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  left: 250px;
+  right: 0;
+  top: 0;
+  z-index: 1000;
+  height: 64px;
+  transition: all 0.3s ease;
+}
+
+/* Trigger Button */
+.trigger {
+  color: #1890ff;
+  font-size: 16px;
+  padding: 8px;
+}
+
+/* Header Right Content */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Tenant Info */
+.header-right .ant-space {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.85);
+}
+
+/* Tenant Selector */
+.header-right .ant-select {
+  min-width: 150px;
+}
+
+/* User Info */
+.header-right .ant-dropdown-trigger {
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.header-right .ant-dropdown-trigger:hover {
+  background-color: #f5f5f5;
+}
+
+.header-right .ant-avatar {
+  margin-right: 8px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .sider {
+    position: fixed;
+    z-index: 2;
+  }
+  
+  .header {
+    left: 0;
+    z-index: 1;
+  }
+}
+
+/* Collapsed State */
+.sider-collapsed + .header {
+  left: 56px !important;
+}

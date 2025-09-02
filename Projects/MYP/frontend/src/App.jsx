@@ -1,35 +1,56 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import { Layout } from 'antd';
+import { Outlet, useLocation } from 'react-router-dom';
+import SiderLayout from './components/layout/SiderLayout';
+import './App.css';
+
+const { Content, Footer } = Layout;
 
 function App() {
-  const [count, setCount] = useState(0)
+  const location = useLocation();
+  
+  // 定义不需要显示侧边栏的公共路由
+  const publicRoutes = [
+    '/login',
+    '/register',
+    '/forgot-password',
+    '/reset-password'
+  ];
+  
+  // 检查当前路由是否为公共路由
+  const isPublicRoute = publicRoutes.some(route => 
+    location.pathname === route || location.pathname.startsWith(route + '/')
+  );
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Layout className="app-container">
+      {!isPublicRoute ? (
+        // 对于受保护的路由，显示完整的布局（包含侧边栏菜单）
+        <>
+          <SiderLayout />
+          <Layout>
+            <Content className="content">
+              <div className="main-content">
+                <Outlet />
+              </div>
+            </Content>
+            <Footer className="footer">
+              MYP ©{new Date().getFullYear()} Created by AIG
+            </Footer>
+          </Layout>
+        </>
+      ) : (
+        // 对于公共路由（如登录页），只显示内容区域，不显示侧边栏菜单
+        <Layout>
+          <Content className="content">
+            <div className="public-content">
+              <Outlet />
+            </div>
+          </Content>
+        </Layout>
+      )}
+    </Layout>
+  );
 }
 
-export default App
+export default App;

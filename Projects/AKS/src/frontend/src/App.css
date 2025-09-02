@@ -1,0 +1,70 @@
+/* 应用全局样式 */
+.app-container {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* 加载状态样式 */
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+/* 空状态样式 */
+.empty-container {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-color-secondary);
+}
+
+.empty-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.3;
+}
+
+.empty-text {
+  font-size: 14px;
+}
+
+/* 成功提示框动画 */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.success-message {
+  animation: slideIn 0.3s ease-out;
+}
+
+/* 表单错误提示样式 */
+.form-error-message {
+  color: var(--error-color);
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* 确认对话框样式 */
+.confirm-dialog {
+  border-radius: 8px;
+  box-shadow: var(--box-shadow);
+}
+
+/* 模态框样式增强 */
+.modal-header {
+  border-bottom: 1px solid var(--border-color);
+  padding: 16px 24px;
+}
+
+.modal-footer {
+  border-top: 1px solid var(--border-color);
+  padding: 12px 24px;
+}

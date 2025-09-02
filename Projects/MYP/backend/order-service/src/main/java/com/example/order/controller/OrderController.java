@@ -124,4 +124,15 @@ public class OrderController {
         Order updatedOrder = orderService.updateOrderStatus(id, status);
         return ResponseEntity.ok(updatedOrder);
     }
+    
+    /**
+     * 获取指定产品ID的订单数量
+     * @param productId 产品ID
+     * @return 订单数量
+     */
+    @GetMapping("/product/{productId}/count")
+    public ResponseEntity<Long> getOrderCountByProductId(@PathVariable Long productId) {
+        Long orderCount = orderService.getOrderCountByProductId(productId);
+        return ResponseEntity.ok(orderCount);
+    }
 }

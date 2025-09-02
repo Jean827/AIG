@@ -1,6 +1,6 @@
 # 项目文档索引
 
-**最后更新时间**: 2025-08-12 16:00:00 GMT+8
+**最后更新时间**: 2025-08-15 11:00:00 GMT+8
 
 ## 文档索引
 
@@ -41,3 +41,4 @@
 - [Spring Boot 3.x JPA迁移与数据库连接问题解决方案](../lessons-learned/spring-boot-3-jpa-migration.md)
 - [API测试指南-认证服务](../lessons-learned/api-testing-guide-auth-service.md)
 - [Java Lombok兼容性问题](../lessons-learned/java-lombok-compatibility.md)
+| DOC-023 | 技术经验 | 项目经验教训总结 | docs/lessons-learned/summary.md | v1.0 | 2025-08-15 11:00:00 GMT+8 | 已完成 | 整合了认证授权服务测试、Lombok兼容性、Spring Boot 3.x JPA迁移及循环依赖解决等经验 |

@@ -1,0 +1,129 @@
+/* RechartsTestPage 样式优化 */
+.recharts-test-page {
+  padding: 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.recharts-test-page h1 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.recharts-test-page .ant-divider {
+  margin: 24px 0;
+}
+
+.recharts-test-page .ant-row {
+  margin-bottom: 24px;
+}
+
+.recharts-test-page .ant-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+  overflow: hidden;
+  min-height: 380px;
+}
+
+.recharts-test-page .ant-card-body {
+  flex: 1;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.recharts-test-page .ant-card-head {
+  min-height: 52px;
+  padding: 0 16px;
+}
+
+.recharts-test-page .ant-card-head-title {
+  font-size: 16px;
+  font-weight: 500;
+  padding: 12px 0;
+}
+
+.recharts-test-page .ant-card-extra {
+  padding: 12px 0;
+}
+
+/* 防止图表被裁剪 */
+.recharts-test-page .ant-card-body > .recharts-responsive-container {
+  min-height: 300px;
+  width: 100%;
+  flex: 1;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .recharts-test-page {
+    padding: 16px;
+  }
+  
+  .recharts-test-page h1 {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+  
+  .recharts-test-page .ant-card {
+    min-height: 320px;
+    margin-bottom: 16px !important;
+  }
+  
+  .recharts-test-page .ant-card-body {
+    padding: 12px;
+  }
+  
+  .recharts-test-page .ant-card-body > .recharts-responsive-container {
+    min-height: 250px;
+  }
+  
+  /* 确保小屏幕下卡片之间有间距 */
+  .recharts-test-page .ant-row > .ant-col {
+    margin-bottom: 16px !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .recharts-test-page .ant-row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .recharts-test-page .ant-row > .ant-col {
+    margin-bottom: 16px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .recharts-test-page .ant-card-body > .recharts-responsive-container {
+    min-height: 350px;
+  }
+}
+
+/* 确保内容不会被侧边栏遮挡 */
+.sider-collapsed ~ .ant-layout > .content .recharts-test-page,
+.content .recharts-test-page {
+  padding-left: 16px;
+  padding-right: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 侧边栏折叠时的适配 */
+.sider-collapsed ~ .ant-layout > .content .recharts-test-page {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+/* 确保内容区域不被遮挡 */
+.recharts-test-page .main-content {
+  padding: 0 !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}

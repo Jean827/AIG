@@ -40,4 +40,11 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
      * @return 订单列表
      */
     List<Order> findByStatusAndTenantId(Integer status, Long tenantId);
+    
+    /**
+     * 根据产品ID统计订单数量
+     * @param productId 产品ID
+     * @return 订单数量
+     */
+    Long countByProductId(Long productId);
 }

@@ -6,11 +6,15 @@ import com.example.product.repository.ProductRepository;
 import com.example.product.service.ProductService;
 import com.example.product.feign.OrderServiceClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 产品服务实现类
@@ -20,18 +24,28 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
     private final OrderServiceClient orderServiceClient;
+    private final RedisTemplate<String, Object> redisTemplate;
+    private final long productCacheTtl;
 
     @Autowired
-    public ProductServiceImpl(ProductRepository productRepository, OrderServiceClient orderServiceClient) {
+    public ProductServiceImpl(ProductRepository productRepository, OrderServiceClient orderServiceClient, RedisTemplate<String, Object> redisTemplate, @Value("${product.cache.ttl:3600}") long productCacheTtl) {
         this.productRepository = productRepository;
         this.orderServiceClient = orderServiceClient;
+        this.redisTemplate = redisTemplate;
+        this.productCacheTtl = productCacheTtl;
     }
 
     @Override
     public Product createProduct(Product product) {
         // 验证产品信息
         validateProduct(product);
-        return productRepository.save(product);
+        Product createdProduct = productRepository.save(product);
+
+        // 清除相关缓存
+        redisTemplate.delete("products:tenant:" + product.getTenantId());
+        redisTemplate.delete("products:category:" + product.getCategoryId());
+
+        return createdProduct;
     }
 
     @Override
@@ -39,6 +53,10 @@ public class ProductServiceImpl implements ProductService {
         // 检查产品是否存在
         Product existingProduct = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("产品不存在，ID: " + id));
+
+        // 保存旧的分类和租户ID，用于清除缓存
+        Long oldCategoryId = existingProduct.getCategoryId();
+        Long oldTenantId = existingProduct.getTenantId();
 
         // 更新产品信息
         existingProduct.setName(product.getName());
@@ -52,36 +70,90 @@ public class ProductServiceImpl implements ProductService {
         // 验证更新后的产品信息
         validateProduct(existingProduct);
 
-        return productRepository.save(existingProduct);
+        Product updatedProduct = productRepository.save(existingProduct);
+
+        // 清除相关缓存
+        redisTemplate.delete("product:id:" + id);
+        redisTemplate.delete("products:tenant:" + oldTenantId);
+        redisTemplate.delete("products:category:" + oldCategoryId);
+        
+        // 如果分类或租户ID发生了变化，也清除新的相关缓存
+        if (!product.getCategoryId().equals(oldCategoryId)) {
+            redisTemplate.delete("products:category:" + product.getCategoryId());
+        }
+        if (!product.getTenantId().equals(oldTenantId)) {
+            redisTemplate.delete("products:tenant:" + product.getTenantId());
+        }
+
+        return updatedProduct;
     }
 
     @Override
     public void deleteProduct(Long id) {
         // 检查产品是否存在
-        if (!productRepository.existsById(id)) {
-            throw new RuntimeException("产品不存在，ID: " + id);
-        }
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("产品不存在，ID: " + id));
+
+        // 保存分类和租户ID，用于清除缓存
+        Long categoryId = product.getCategoryId();
+        Long tenantId = product.getTenantId();
+
         productRepository.deleteById(id);
+
+        // 清除相关缓存
+        redisTemplate.delete("product:id:" + id);
+        redisTemplate.delete("products:tenant:" + tenantId);
+        redisTemplate.delete("products:category:" + categoryId);
     }
 
     @Override
     public Optional<Product> getProductById(Long id) {
-        return productRepository.findById(id);
+        String cacheKey = "product:id:" + id;
+        Product product = (Product) redisTemplate.opsForValue().get(cacheKey);
+        if (product != null) {
+            return Optional.of(product);
+        }
+        Optional<Product> productOptional = productRepository.findById(id);
+        productOptional.ifPresent(p -> redisTemplate.opsForValue().set(cacheKey, p, productCacheTtl, TimeUnit.SECONDS));
+        return productOptional;
     }
 
     @Override
     public List<Product> getAllProducts() {
-        return productRepository.findAll();
+        // 默认返回第一页，每页10条记录
+        return productRepository.findAll(PageRequest.of(0, 10)).getContent();
+    }
+
+    /**
+     * 分页查询所有产品
+     * @param page 页码（从0开始）
+     * @param size 每页记录数
+     * @return 产品列表
+     */
+    public List<Product> getAllProducts(int page, int size) {
+        return productRepository.findAll(PageRequest.of(page, size)).getContent();
     }
 
     @Override
     public List<Product> getProductsByTenantId(Long tenantId) {
-        return productRepository.findByTenantId(tenantId);
+        String cacheKey = "products:tenant:" + tenantId;
+        List<Product> products = (List<Product>) redisTemplate.opsForValue().get(cacheKey);
+        if (products == null) {
+            products = productRepository.findByTenantId(tenantId);
+            redisTemplate.opsForValue().set(cacheKey, products, productCacheTtl, TimeUnit.SECONDS);
+        }
+        return products;
     }
 
     @Override
     public List<Product> getProductsByCategoryId(Long categoryId) {
-        return productRepository.findByCategoryId(categoryId);
+        String cacheKey = "products:category:" + categoryId;
+        List<Product> products = (List<Product>) redisTemplate.opsForValue().get(cacheKey);
+        if (products == null) {
+            products = productRepository.findByCategoryId(categoryId);
+            redisTemplate.opsForValue().set(cacheKey, products, productCacheTtl, TimeUnit.SECONDS);
+        }
+        return products;
     }
 
     @Override
@@ -112,6 +184,20 @@ public class ProductServiceImpl implements ProductService {
         }
         // 调用订单服务查询订单
         return orderServiceClient.getOrdersByProductId(productId);
+    }
+    
+    /**
+     * 获取产品关联的订单数量
+     * @param productId 产品ID
+     * @return 订单数量
+     */
+    public Long getProductOrderCount(Long productId) {
+        // 验证产品是否存在
+        if (!productRepository.existsById(productId)) {
+            throw new RuntimeException("产品不存在，ID: " + productId);
+        }
+        // 调用订单服务获取订单数量
+        return orderServiceClient.getOrderCountByProductId(productId);
     }
 
     /**
